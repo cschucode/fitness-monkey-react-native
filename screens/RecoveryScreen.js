@@ -3,9 +3,12 @@ import { View, Text, Button } from 'react-native';
 
 const RecoveryScreen = ({ navigation, route }) => {
   return (
-    <View>
-      <Text>Hi {route.params.username}!</Text>
-      <Button onPress={() => navigation.navigate('Auth')} title="Go Home" />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Recovery Page</Text>
+      <Button
+        title="To Recovery Metrics"
+        onPress={() => navigation.navigate('Recovery')}
+      />
     </View>
   );
 };

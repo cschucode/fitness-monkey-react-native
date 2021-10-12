@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
@@ -16,14 +17,17 @@ const App = () => {
   return (
       <View style={styles.container}>
         <Header title="Fitness Monkey" />
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" styles={styles.container} component={HomeScreen} />
-            <Stack.Screen name="Auth" component={AuthScreen} />
-            <Stack.Screen name="Register" component={RegistrationScreen} />
-            <Stack.Screen name="Recovery" component={RecoveryScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen name="Home" styles={styles.container} component={HomeScreen} />
+              <Stack.Screen name="Auth" component={AuthScreen} />
+              <Stack.Screen name="Register" component={RegistrationScreen} />
+              <Stack.Screen name="Recovery" component={RecoveryScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+        <Footer />
       </View>
   );
 }
