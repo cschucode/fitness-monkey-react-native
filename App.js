@@ -7,9 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
-import AuthScreen from './screens/AuthScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
 import RecoveryScreen from './screens/RecoveryScreen';
+import SocialFeedScreen from './screens/SocialFeedScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,11 +19,11 @@ const App = () => {
         <Header title="Fitness Monkey" />
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
+            <Stack.Navigator initialRouteName="Register">
               <Stack.Screen name="Home" styles={styles.container} component={HomeScreen} />
-              <Stack.Screen name="Auth" component={AuthScreen} />
               <Stack.Screen name="Register" component={RegistrationScreen} />
               <Stack.Screen name="Recovery" component={RecoveryScreen} />
+              <Stack.Screen name="SocialFeed" component={SocialFeedScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
