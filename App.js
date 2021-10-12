@@ -1,33 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
-
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import AuthScreen from './screens/AuthScreen';
+
+const Stack = createNativeStackNavigator();
+
+const userContext = createContext({
+  username: 'Phil',
+  sobriety_date: new Date('June 26, 2000 07:00:00'),
+});
 
 const App = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [hasRegistered, setHasRegistered] = useState(false);
-
-  const handleAuth = (e) => {
-    // Register
-      // Create a user in the database
-      // Take user to registration form page
-    // Login
-      // Not a member, take them to registration page
-      // Are a member, take them to recovery dashboard
-    setHasRegistered(!hasRegistered);
-  }
+  const RecoveryScreen = ({ navigation, route }) => {
+    return (
+      <View style={styles.container}>
+        <Text>Hi {route.params.username}!</Text>
+        <Button onPress={() => navigation.navigate('Auth')} title="Go Home" />
+      </View>
+    );
+  };
 
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <Text>Fitness Monkey</Text>
-        <TextInput style={styles.textInput} placeholder="username" value={username} onChangeText={setUsername} />
-        <TextInput style={styles.textInput} placeholder="password" value={password} onChangeText={setPassword} />
-        <Button onPress={handleAuth} title={hasRegistered ? 'Login' : 'Register'} />
-        <StatusBar style="auto" />
-      </View>
+      <Stack.Navigator initialRouteName={'Auth'}>
+        <Stack.Screen name="Auth" styles={styles} component={AuthScreen} />
+        <Stack.Screen name="Recovery" component={RecoveryScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
 
   );
