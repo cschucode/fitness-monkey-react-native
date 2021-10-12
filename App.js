@@ -4,32 +4,32 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import Header from './components/Header';
+import HomeScreen from './screens/HomeScreen';
 import AuthScreen from './screens/AuthScreen';
+import RegistrationScreen from './screens/RegistrationScreen';
+import RecoveryScreen from './screens/RecoveryScreen';
 
 const Stack = createNativeStackNavigator();
 
-const userContext = createContext({
-  username: 'Phil',
-  sobriety_date: new Date('June 26, 2000 07:00:00'),
-});
+const UserContext = createContext({});
 
 const App = () => {
-  const RecoveryScreen = ({ navigation, route }) => {
-    return (
-      <View style={styles.container}>
-        <Text>Hi {route.params.username}!</Text>
-        <Button onPress={() => navigation.navigate('Auth')} title="Go Home" />
-      </View>
-    );
-  };
-
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={'Auth'}>
-        <Stack.Screen name="Auth" styles={styles} component={AuthScreen} />
-        <Stack.Screen name="Recovery" component={RecoveryScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <View style={styles.container}>
+        <Header title="Fitness Monkey" />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" styles={styles.container} component={HomeScreen} />
+            <Stack.Screen name="Auth" component={AuthScreen} />
+            <Stack.Screen name="Register" component={RegistrationScreen} />
+            <Stack.Screen name="Recovery" component={RecoveryScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+        <View>
+          {/* Icons go here to navigate among the screens */}
+        </View>
+      </View>
 
   );
 }
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   textInput: {
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 10,
     padding: 10,
-  }
+  },
 });
 
 export default App;
