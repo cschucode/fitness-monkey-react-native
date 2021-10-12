@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, createContext } from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,8 +11,6 @@ import RegistrationScreen from './screens/RegistrationScreen';
 import RecoveryScreen from './screens/RecoveryScreen';
 
 const Stack = createNativeStackNavigator();
-
-const UserContext = createContext({});
 
 const App = () => {
   return (
@@ -26,11 +24,7 @@ const App = () => {
             <Stack.Screen name="Recovery" component={RecoveryScreen} />
           </Stack.Navigator>
         </NavigationContainer>
-        <View>
-          {/* Icons go here to navigate among the screens */}
-        </View>
       </View>
-
   );
 }
 
