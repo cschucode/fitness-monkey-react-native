@@ -19,9 +19,9 @@ const App = () => {
         <Header title="Fitness Monkey" />
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Register">
+            <Stack.Navigator initialRouteName="Sign In">
               <Stack.Screen name="Home" styles={styles.container} component={HomeScreen} />
-              <Stack.Screen name="Register" component={RegistrationScreen} />
+              <Stack.Screen name="Sign In" component={RegistrationScreen} />
               <Stack.Screen name="Recovery" component={RecoveryScreen} />
               <Stack.Screen name="SocialFeed" component={SocialFeedScreen} />
             </Stack.Navigator>
@@ -37,12 +37,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-  },
-  textInput: {
-    borderColor: '#bbb',
-    borderWidth: 1,
-    margin: 10,
-    padding: 10,
   },
 });
 
