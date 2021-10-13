@@ -22,8 +22,8 @@ const RegistrationScreen = ({ navigation }) => {
 
   const handleOnPress = () => {
     // create a new user in the database
-    console.log(date);
-
+    console.log({ username, addiction, date });
+    navigation.navigate('Recovery', { username, time: date.getTime() });
   };
 
   return (
