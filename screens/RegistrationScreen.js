@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, Pressable } from 'react-native';
 
+import { Ionicons, AntDesign } from '@expo/vector-icons';
+
 import DateTimePicker from '@react-native-community/datetimepicker';
+
+import db from '../db/expo_sqlite_db';
 
 const RegistrationScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -20,20 +24,72 @@ const RegistrationScreen = ({ navigation }) => {
     setShow(true);
   };
 
-  const handleOnPress = () => {
+  const handleOnPress = async () => {
     // create a new user in the database
-    console.log({ username, addiction, date });
     navigation.navigate('Recovery', { username, time: date.getTime() });
+    await createTable();
+    await setUser(username, addiction, date.getTime());
+    await getUser();
   };
+
+  const createTable = async () => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(
+          `CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, addiction TEXT, sobriety_date INTEGER)`,
+          [],
+          (tx, results) => {},
+          (err) => console.log('error creating table')
+        );
+      }
+    )
+  }
+
+  const setUser = async (username, addiction, recoveryDate) => {
+    try {
+      await db.transaction(
+        async (tx) => {
+          await tx.executeSql(
+            `INSERT INTO users (username, addiction, sobriety_date) VALUES (?, ?, ?)`,
+            [username, addiction, recoveryDate],
+            (tx, results) => {},
+            (err) => console.log(err)
+          )
+        }
+      )
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const getUser = async () => {
+    try {
+      db.transaction(
+        async (tx) => {
+          await tx.executeSql(
+            `SELECT * FROM users`,
+            [],
+            (tx, results) => {
+              console.log(results.rows._array);
+            }
+          )
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
       <TextInput style={styles.input} placeholder="username" value={username} onChangeText={setUsername} />
       <TextInput style={styles.input} placeholder="addiction" value={addiction} onChangeText={setAddiction} />
 
-      <Pressable onPressIn={showDatepicker}>
-        <Text style={styles.input}>Select Recovery Date</Text>
+      <Pressable style={{flexDirection: 'row', alignItems: 'center', padding: 10}} onPressIn={showDatepicker}>
+        <AntDesign name="calendar" size={24} color="black" />
+        <Text style={{height: 40, margin: 12, padding: 10}}>Select recovery date</Text>
       </Pressable>
+      <Text style={{padding: 10}}>Date selected: {date.toLocaleDateString()}</Text>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -44,10 +100,13 @@ const RegistrationScreen = ({ navigation }) => {
           onChange={onChange}
         />
       )}
-      <Button
-        title="Sign In"
-        onPress={handleOnPress}
-      />
+      <View style={{ padding: 10 }}>
+        <Button
+          style={{backgroundColor: 'green', height: 40}}
+          title="Sign In"
+          onPress={handleOnPress}
+        />
+      </View>
     </View>
   );
 }

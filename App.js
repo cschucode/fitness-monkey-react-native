@@ -17,7 +17,7 @@ const App = () => {
   return (
       <View style={styles.container}>
         <Header title="Fitness Monkey" />
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
           <NavigationContainer>
             <Stack.Navigator initialRouteName="Sign In">
               <Stack.Screen name="Home" styles={styles.container} component={HomeScreen} />
