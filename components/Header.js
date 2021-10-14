@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     backgroundColor: 'navy',
+    borderBottomColor: 'orange',
     flexDirection: 'row',
     padding: 10,
   },

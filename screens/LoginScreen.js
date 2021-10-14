@@ -23,11 +23,12 @@ const LoginScreen = ({ navigation }) => {
     setShow(true);
   };
 
-  const handleOnPress = async () => {
+  const handleOnPress = async (navigationObj) => {
     await createTable();
     await setUser(username, addiction, date.getTime());
     await getUser();
 
+    return navigationObj.navigate('NavigationScreens');
   };
 
   const createTable = async () => {
@@ -109,7 +110,8 @@ const LoginScreen = ({ navigation }) => {
         <View style={{ padding: 10 }}>
           <Button
             title="Sign In"
-            onPress={() => navigation.navigate('NavigationScreens')}
+            onPress={() => navigation.navigate('NavigationScreens', { username, addiction, time: date.getTime() })}
+
           />
         </View>
       </View>
