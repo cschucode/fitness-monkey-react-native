@@ -7,11 +7,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import db from '../db/expo_sqlite_db';
 
-const RegistrationScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [addiction, setAddiction] = useState('');
   const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
   const onChange = (event, selectedDate) => {
@@ -25,12 +24,10 @@ const RegistrationScreen = ({ navigation }) => {
   };
 
   const handleOnPress = async () => {
-    // create a new user in the database
-    const mockUser = { username: 'Mocky', time: new Date().getTime() };
-    navigation.navigate('Recovery', mockUser);
     await createTable();
     await setUser(username, addiction, date.getTime());
     await getUser();
+
   };
 
   const createTable = async () => {
@@ -53,7 +50,9 @@ const RegistrationScreen = ({ navigation }) => {
           await tx.executeSql(
             `INSERT INTO users (username, addiction, sobriety_date) VALUES (?, ?, ?)`,
             [username, addiction, recoveryDate],
-            (tx, results) => {},
+            (tx, results) => {
+              console.log(results.rows.item(0));
+            },
             (err) => console.log(err)
           )
         }
@@ -82,31 +81,37 @@ const RegistrationScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
-      <TextInput style={styles.input} placeholder="username" value={username} onChangeText={setUsername} />
-      <TextInput style={styles.input} placeholder="addiction" value={addiction} onChangeText={setAddiction} />
+    <View style={{ flex: 1, backgroundColor: 'navy' }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ color: 'orange', fontSize: 24 }}>The journey of 1000 miles...</Text>
+        <Text style={{ color: 'orange', fontSize: 24 }}>begins with the first step</Text>
+        <Text style={{ color: 'orange', fontSize: 36, margin: 10 }}>Fitness Monkey</Text>
+      </View>
+      <View style={{ flex: 2 }}>
+        <TextInput placeholderTextColor="orange" style={styles.input} placeholder="username" value={username} onChangeText={setUsername} />
+        <TextInput placeholderTextColor="orange" style={styles.input} placeholder="addiction" value={addiction} onChangeText={setAddiction} />
 
-      <Pressable style={{flexDirection: 'row', alignItems: 'center', padding: 10}} onPressIn={showDatepicker}>
-        <AntDesign name="calendar" size={24} color="black" />
-        <Text style={{height: 40, margin: 12, padding: 10}}>Select recovery date</Text>
-      </Pressable>
-      <Text style={{padding: 10}}>Date selected: {date.toLocaleDateString()}</Text>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
-      <View style={{ padding: 10 }}>
-        <Button
-          style={{backgroundColor: 'green', height: 40}}
-          title="Sign In"
-          onPress={handleOnPress}
-        />
+        <Pressable style={{flexDirection: 'row', alignItems: 'center', padding: 10}} onPressIn={showDatepicker}>
+          <AntDesign name="calendar" size={24} color="orange" />
+          <Text style={{height: 40, margin: 12, padding: 10, color: 'orange', fontSize: 18 }}>Select recovery date</Text>
+        </Pressable>
+        <Text style={{ color: 'orange', padding: 10, fontSize: 18 }}>Date selected: {date.toLocaleDateString()}</Text>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode='date'
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+        <View style={{ padding: 10 }}>
+          <Button
+            title="Sign In"
+            onPress={() => navigation.navigate('NavigationScreens')}
+          />
+        </View>
       </View>
     </View>
   );
@@ -114,11 +119,14 @@ const RegistrationScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    borderColor: 'orange',
+    borderWidth: 2,
+    color: 'orange',
+    fontSize: 20,
+    height: 60,
     margin: 12,
-    borderWidth: 1,
     padding: 10,
   },
 });
 
-export default RegistrationScreen;
+export default LoginScreen;
