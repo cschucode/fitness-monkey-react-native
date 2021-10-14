@@ -1,8 +1,13 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StatusBar } from 'react-native';
 
 const Header = ({ title, logo }) => {
-  return <Text style={{ padding: 20, color: '#bbb', backgroundColor: 'dodgerblue' }}>{title}</Text>;
+  return (
+    <View>
+      <StatusBar></StatusBar>
+      <Text style={{ padding: 10, color: 'orange', fontSize: 24, backgroundColor: 'navy' }}>{title}</Text>
+    </View>
+  );
 }
 
 export default Header;

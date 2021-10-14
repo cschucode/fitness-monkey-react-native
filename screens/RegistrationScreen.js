@@ -26,7 +26,8 @@ const RegistrationScreen = ({ navigation }) => {
 
   const handleOnPress = async () => {
     // create a new user in the database
-    navigation.navigate('Recovery', { username, time: date.getTime() });
+    const mockUser = { username: 'Mocky', time: new Date().getTime() };
+    navigation.navigate('Recovery', mockUser);
     await createTable();
     await setUser(username, addiction, date.getTime());
     await getUser();
