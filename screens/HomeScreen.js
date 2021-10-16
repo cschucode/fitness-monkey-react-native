@@ -8,14 +8,13 @@ const HomeScreen = ({ navigation, userInfo }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Hello {username}!</Text>
-
+      <Text style={styles.text}>Congratulations on</Text>
       <View style={styles.metrics}>
-        <Text style={{ fontSize: 16, paddingVertical: 10, color: 'orange' }}>Recovery Metrics</Text>
         <Text style={styles.metricsText}>{days} days</Text>
         <Text style={styles.metricsText}>{hours} hours</Text>
         <Text style={styles.metricsText}>{minutes} minutes</Text>
       </View>
-      <Text style={styles.text}>free from {addiction}</Text>
+      <Text style={styles.text}>free from {addiction}!</Text>
     </View>
   );
 };
@@ -29,13 +28,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   metrics: {
-    borderColor: 'orange',
+    borderColor: 'dodgerblue',
     borderWidth: 1,
     padding: 50,
   },
   metricsText: {
-    color: 'dodgerblue',
-    fontSize: 40,
+    color: 'orange',
+    fontSize: 32,
   },
   text: {
     color: 'dodgerblue',

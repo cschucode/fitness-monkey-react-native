@@ -65,7 +65,7 @@ const Navigator = ({ navigation, route }) => {
       <Header title="Fitness Monkey" />
       <View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'navy' }}>
         <NavigationContainer independent={true} style={{ backgroundColor: 'navy' }}>
-          <Tab.Navigator screenOptions={{tabBarStyle: {backgroundColor: 'navy'}}} initialRouteName="Achievements">
+          <Tab.Navigator screenOptions={{tabBarStyle: {backgroundColor: 'navy'}}} initialRouteName="Home">
             <Tab.Screen name="Home" options={screenOptions.home}>
               {props => <HomeScreen userInfo={userInfo} />}
             </Tab.Screen>

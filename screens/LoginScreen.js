@@ -89,8 +89,8 @@ const LoginScreen = ({ navigation }) => {
         <Text style={{ color: 'orange', fontSize: 36, margin: 10 }}>Fitness Monkey</Text>
       </View>
       <View style={{ flex: 2 }}>
-        <TextInput placeholderTextColor="orange" style={styles.input} placeholder="username" value={username} onChangeText={setUsername} />
-        <TextInput placeholderTextColor="orange" style={styles.input} placeholder="addiction" value={addiction} onChangeText={setAddiction} />
+        <TextInput placeholderTextColor="orange" style={styles.input} placeholder="what's your name?" value={username} onChangeText={setUsername} />
+        <TextInput placeholderTextColor="orange" style={styles.input} placeholder="what would you like to overcome?" value={addiction} onChangeText={setAddiction} />
 
         <Pressable style={{flexDirection: 'row', alignItems: 'center', padding: 10}} onPressIn={showDatepicker}>
           <AntDesign name="calendar" size={24} color="orange" />
