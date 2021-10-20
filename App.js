@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -21,6 +21,7 @@ const Navigator = ({ navigation, route }) => {
   const convertToDays = (ms) => {
     // get current time
     const currentTime = Date.now();
+    // time between now and sobriety date
     let accrued = currentTime - ms;
 
     let days = Math.floor(accrued / (86400 * 1000));
@@ -62,6 +63,7 @@ const Navigator = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar />
       <Header title="Fitness Monkey" />
       <View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'navy' }}>
         <NavigationContainer independent={true} style={{ backgroundColor: 'navy' }}>

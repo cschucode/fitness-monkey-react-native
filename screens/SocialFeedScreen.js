@@ -14,7 +14,7 @@ const SocialFeedScreen = () => {
             `SELECT * FROM users`,
             [],
             (tx, results) => {
-              console.log(results.rows._array);
+              console.log('results', results.rows._array);
               setUsers(results.rows._array);
             },
             (err) => console.log(err)

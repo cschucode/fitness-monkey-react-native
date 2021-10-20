@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, ImageBackground } from 'react-native';
 
 import cyclingImage from '../assets/images/cycling.png';
 import runningImage from '../assets/images/running.png';
@@ -22,13 +22,7 @@ const WorkoutScreen = () => {
       <View style={styles.workoutsContainer}>
         {MOCK_WORKOUT_DATA.map((workout) => (
           <View style={styles.cardContainer} key={workout.id}>
-            <View style={{
-              height: 250,
-              width: '100%',
-              backgroundImage: `url(${workout.image})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover'}}
-            ></View>
+            <ImageBackground style={{ height: 250, width: '100%' }} resizeMode="cover" source={workout.image}></ImageBackground>
             <View style={styles.cardInfo}>
               <Text style={styles.title}>{`${workout.workoutType} | ${workout.title}`}</Text>
               <Text style={styles.info}>{workout.comments}</Text>
@@ -70,7 +64,7 @@ const styles = StyleSheet.create({
     color: 'orange',
     fontSize: 16,
     textTransform: 'capitalize',
-    fontWeight: 900,
+    fontWeight: '900',
   },
   info: {
     color: '#bbb',
