@@ -104,11 +104,10 @@ const LoginScreen = ({ navigation }) => {
         <TextInput placeholderTextColor="orange" style={styles.input} placeholder="what's your name?" value={username} onChangeText={setUsername} />
         <TextInput placeholderTextColor="orange" style={styles.input} placeholder="what would you like to overcome?" value={addiction} onChangeText={setAddiction} />
 
-        <Pressable style={{flexDirection: 'row', alignItems: 'center', padding: 10}} onPressIn={showDatepicker}>
+        <Pressable style={styles.datepicker} onPressIn={showDatepicker}>
           <AntDesign name="calendar" size={24} color="orange" />
           <Text style={{height: 40, margin: 12, padding: 10, color: 'orange', fontSize: 18 }}>Select recovery date</Text>
         </Pressable>
-        <Text style={{ color: 'orange', padding: 10, fontSize: 18 }}>Date selected: {date.toLocaleDateString()}</Text>
         {show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -140,6 +139,12 @@ const styles = StyleSheet.create({
     height: 60,
     margin: 12,
     padding: 10,
+  },
+  datepicker: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10
   },
 });
 
