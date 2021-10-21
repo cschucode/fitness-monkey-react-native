@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, View, Button, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Text, View, Button, StyleSheet, ScrollView, Animated } from 'react-native';
 
 const HomeScreen = ({ navigation, userInfo }) => {
   const { username, addiction, recoveryTime } = userInfo;
@@ -18,17 +18,33 @@ const HomeScreen = ({ navigation, userInfo }) => {
     return `Good ${timeOfDay} ${name}`;
   };
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }
+    ).start();
+  }, [fadeAnim]);
+
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.greeting}>{greeting(username)}</Text>
-      <Text style={styles.greeting}>Take a moment to appreciate...</Text>
+      <Animated.View style={{ opacity: fadeAnim }}>
+        <Text style={styles.greeting}>{greeting(username)}</Text>
+        <Text style={styles.greeting}>Take a moment to appreciate...</Text>
+      </Animated.View>
       <View style={styles.metrics}>
         <Text style={styles.metricsText}>{days} days</Text>
         <Text style={styles.metricsText}>{hours} hours</Text>
         <Text style={styles.metricsText}>{minutes} minutes</Text>
-        <Text style={styles.greeting}>without</Text>
-        <Text style={styles.greeting}>{addiction}</Text>
       </View>
+      <Animated.View style={{ opacity: fadeAnim }}>
+        <Animated.Text style={styles.greeting}>without {addiction}</Animated.Text>
+      </Animated.View>
     </ScrollView>
   );
 };
