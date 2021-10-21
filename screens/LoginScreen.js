@@ -94,35 +94,35 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'navy' }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ color: 'orange', fontSize: 24 }}>The journey of 1000 miles...</Text>
-        <Text style={{ color: 'orange', fontSize: 24 }}>begins with the first step</Text>
         <Text style={{ color: 'orange', fontSize: 36, margin: 10 }}>Fitness Monkey</Text>
       </View>
       <View style={{ flex: 2 }}>
         <TextInput placeholderTextColor="orange" style={styles.input} placeholder="what's your name?" value={username} onChangeText={setUsername} />
         <TextInput placeholderTextColor="orange" style={styles.input} placeholder="what would you like to overcome?" value={addiction} onChangeText={setAddiction} />
+        <View>
+          <Pressable style={styles.datepicker} onPressIn={showDatepicker}>
+            <AntDesign name="calendar" size={24} color="orange" />
+            <Text style={{height: 40, margin: 12, padding: 10, color: 'orange', fontSize: 18 }}>Select recovery date</Text>
+          </Pressable>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode='date'
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
 
-        <Pressable style={styles.datepicker} onPressIn={showDatepicker}>
-          <AntDesign name="calendar" size={24} color="orange" />
-          <Text style={{height: 40, margin: 12, padding: 10, color: 'orange', fontSize: 18 }}>Select recovery date</Text>
-        </Pressable>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode='date'
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
         <View style={{ padding: 10 }}>
           <Button
             title="Sign In"
             onPress={() => navigation.navigate('NavigationScreens', { username, addiction, time: date.getTime() })}
-
+            style={styles.signin}
           />
         </View>
       </View>
@@ -132,10 +132,11 @@ const LoginScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   input: {
-    borderColor: 'orange',
-    borderWidth: 2,
+    borderColor: 'dodgerblue',
+    borderRadius: 10,
+    borderWidth: 1,
     color: 'orange',
-    fontSize: 20,
+    fontSize: 18,
     height: 60,
     margin: 12,
     padding: 10,
@@ -144,8 +145,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10
+    padding: 10,
   },
+  signin: {
+    padding: 15,
+    borderColor: 'dodgerblue',
+    borderWidth: 1,
+  }
 });
 
 export default LoginScreen;

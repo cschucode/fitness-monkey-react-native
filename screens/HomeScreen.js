@@ -29,7 +29,6 @@ const HomeScreen = ({ navigation, userInfo }) => {
         <Text style={styles.greeting}>without</Text>
         <Text style={styles.greeting}>{addiction}</Text>
       </View>
-
     </ScrollView>
   );
 };
