@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'navy',
     borderBottomColor: 'orange',
     flexDirection: 'row',
-    padding: 10,
+    padding: 20,
   },
   headerText: {
     backgroundColor: 'navy',

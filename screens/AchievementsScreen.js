@@ -32,7 +32,7 @@ const AchievementsScreen = ({ userInfo }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.text}>Achievements Screen</Text>
+      <Text style={styles.text}>Achievements</Text>
       {filteredAchievements.map((ach) => {
         return (
           <View key={ach.days} style={styles.achievement}>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'orange',
-    fontSize: 24,
+    fontSize: 18,
   },
   badgeText: {
     color: 'orange',

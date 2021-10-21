@@ -18,7 +18,7 @@ const MOCK_WORKOUT_DATA = [
 const WorkoutScreen = () => {
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.text}>Workouts: </Text>
+      <Text style={styles.text}>Workouts</Text>
       <View style={styles.workoutsContainer}>
         {MOCK_WORKOUT_DATA.map((workout) => (
           <View style={styles.cardContainer} key={workout.id}>
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   workoutsContainer: {
-    padding: 10,
     flex: 1,
   },
   cardContainer: {
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   cardImage: {
-    height: '250px',
+    height: 250,
   },
   title: {
     color: 'orange',

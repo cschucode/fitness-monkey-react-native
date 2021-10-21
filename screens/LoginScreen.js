@@ -44,6 +44,18 @@ const LoginScreen = ({ navigation }) => {
     )
   }
 
+
+  const addUsersToDB = (users) => {
+    db.transaction(
+      (tx.executeSql(
+        `query`,
+        [],
+        (tx, results) => {},
+        (err) => console.log(err)
+      ))
+    )
+  }
+
   const setUser = async (username, addiction, recoveryDate) => {
     try {
       await db.transaction(

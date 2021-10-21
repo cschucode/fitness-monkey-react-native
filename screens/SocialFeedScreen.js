@@ -1,51 +1,104 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, Button } from 'react-native';
+import { ScrollView, View, Text, Button, StyleSheet, Image } from 'react-native';
+import faker from 'faker';
 
 import db from '../db/expo_sqlite_db';
 
 const SocialFeedScreen = () => {
-  const [users, setUsers] = useState([]);
+  const [posts, setPosts] = useState([]);
 
-  const getUsers = async () => {
-    try {
-      await db.transaction(
-        async (tx) => {
-          await tx.executeSql(
-            `SELECT * FROM users`,
-            [],
-            (tx, results) => {
-              console.log('results', results.rows._array);
-              setUsers(results.rows._array);
-            },
-            (err) => console.log(err)
-          )
-        }
-      )
-    } catch (err) {
-      console.log(err);
+  const createPosts = (numOfPosts) => {
+    const storage = [];
+
+    for (let i = 0; i < numOfPosts; i++) {
+      let post = {};
+      post.id = i + 1;
+      post.avatar = faker.image.avatar();
+      post.author = faker.internet.userName();
+      post.image = faker.image.people();
+      post.title = faker.company.catchPhrase();
+      post.body = faker.commerce.productDescription();
+
+      storage.push(post);
     }
+    console.log(storage);
+    setPosts(storage);
   }
 
   useEffect(() => {
-    getUsers();
+    createPosts(10);
   }, []);
 
   return (
-    <ScrollView>
-        <Text>Social Feed Screen</Text>
-        <View style={{ flex: 1, padding: 5}}>
-        {users.map((user) => {
-          return (
-            <View key={user.id} style={{ borderWidth: 1, margin: 5, padding: 10}}>
-              <Text>member @{user.username}</Text>
-              <Text>addiction: {user.addiction}</Text>
-              <Text>recovery date in ms: {user.sobriety_date}</Text>
-            </View>
-          );
+    <ScrollView style={styles.container}>
+        <View style={styles.feed}>
+          <Text style={styles.sectionTitle}>Community</Text>
+          {posts.map((post) => {
+            console.log(post);
+            return (
+              <View key={post.id} style={styles.post}>
+                <View style={styles.heading}>
+                  <Image style={styles.avatar} source={{ uri: post.avatar }} />
+                  <Text style={styles.attribution}>{post.author}</Text>
+                </View>
+                <Image style={styles.image} source={{ uri: post.image }}></Image>
+                <Text style={styles.title}>{post.title}</Text>
+                <Text style={{ color: 'orange'}}>{post.body}</Text>
+              </View>
+            );
         })}
         </View>
       </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    padding: 10,
+  },
+  sectionTitle: {
+    color: 'orange',
+    fontSize: 18,
+  },
+  heading: {
+    color: 'dodgerblue',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  attribution: {
+    color: 'dodgerblue',
+    fontWeight: '900',
+    fontSize: 16,
+    padding: 10,
+  },
+  feed: {
+    flex: 1,
+  },
+  avatar: {
+    height: 40,
+    width: 40,
+    borderColor: 'dodgerblue',
+    borderWidth: 2,
+    borderRadius: 50,
+  },
+  post: {
+    borderWidth: 1,
+    borderColor: 'dodgerblue',
+    borderRadius: 5,
+    marginVertical: 10,
+    padding: 10,
+  },
+  title: {
+    color: 'dodgerblue',
+    fontWeight: '900',
+    fontSize: 16,
+    paddingVertical: 10,
+  },
+  image: {
+    height: 200,
+    marginVertical: 10,
+  },
+});
 
 export default SocialFeedScreen;
